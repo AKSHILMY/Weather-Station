@@ -1,4 +1,5 @@
 import { Component } from "react";
+import PredictionPanel from "../components/PredictionPanel";
 
 class DetailPanel extends Component {
   render() {
@@ -23,6 +24,7 @@ class DetailPanel extends Component {
             <span className="wind">90&#176;</span>
           </li>
         </ul>
+        <PredictionPanel />
       </div>
     );
   }
