@@ -6,7 +6,7 @@ con.connect(function (err) {
   con.query("SELECT * FROM student", function (err, result, fields) {
     if (err) throw err;
     Object.keys(result).forEach(function (key) {
-      students = result[key];
+      students = JSON.stringify(result[key]);
       console.log(students);
     });
   });
