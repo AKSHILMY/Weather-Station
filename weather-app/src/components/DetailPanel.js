@@ -1,12 +1,19 @@
 import { Component } from "react";
 import PredictionPanel from "../components/PredictionPanel";
+import axios from "axios";
 
 class DetailPanel extends Component {
+  states = { posts: [] };
+  async componentDidMount() {
+    const { data: posts } = await axios.get("http://localhost:5000/home");
+    this.setState(posts);
+  }
+
   render() {
     return (
       <div className="panel">
         <ul className="details">
-          <h4>Weather Details</h4>
+          {this.states.posts["location"]}
           <li>
             <span>Cloudy</span>
             <span className="cloud">89%</span>

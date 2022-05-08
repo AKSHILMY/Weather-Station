@@ -1,14 +1,15 @@
 var con = require("./connection");
-var students;
+var sensor_data;
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query("SELECT * FROM student", function (err, result, fields) {
+  con.query("SELECT * FROM sensor_data", function (err, result, fields) {
     if (err) throw err;
     Object.keys(result).forEach(function (key) {
-      students = JSON.stringify(result[key]);
-      console.log(students);
+      sensor_data = JSON.stringify(result[key]);
+      sensor_data = JSON.parse(sensor_data);
+      console.log(sensor_data);
     });
   });
 });
-module.exports = students;
+module.exports = sensor_data;

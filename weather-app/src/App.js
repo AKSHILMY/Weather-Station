@@ -9,6 +9,7 @@ function App() {
     <div className="weather-app">
       <div className="container">
         <h3 className="brand"> The Weather</h3>
+
         <Logo />
         <BottomPanel />
       </div>
