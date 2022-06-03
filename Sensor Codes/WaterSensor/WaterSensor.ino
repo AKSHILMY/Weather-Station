@@ -7,7 +7,7 @@
  */
 
 #define POWER_PIN  7
-#define SIGNAL_PIN A5
+#define SIGNAL_PIN A0
 #define SENSOR_MIN 0
 #define SENSOR_MAX 521
 

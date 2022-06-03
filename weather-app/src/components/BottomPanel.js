@@ -6,10 +6,10 @@ class BottomPanel extends React.Component {
       <div>
         <h1 className="temp">16&#176;</h1>
         <div className="city-time">
-          <h1 className="name">London</h1>
+          <h1 className="name">Kandy</h1>
           <small>
-            <span className="time">06:09 </span>
-            <span className="date">Monday Sep 19</span>
+            <span className="time">10:53 </span>
+            <span className="date">Friday June 3</span>
           </small>
         </div>
         <div className="weather">
