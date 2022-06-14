@@ -35,12 +35,12 @@ const char* password = "987654321";
  });
  server.on("/LEDOn",[](){
   server.send(200,"text/html",page);  
-  digitalWrite(LEDPin,LOW);
+  digitalWrite(LEDPin,HIGH);
   delay(1000);
   });
  server.on("/LEDOff",[](){
   server.send(200,"text/html",page);  
-  digitalWrite(LEDPin,HIGH);
+  digitalWrite(LEDPin,LOW);
   delay(1000);
   });
   server.begin();
