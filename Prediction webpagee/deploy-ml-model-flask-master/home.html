@@ -8,11 +8,11 @@
 
         <form method="POST" , action="{{url_for('home')}}">
             <b>
-                <div class="user">
-                    First value : <p>{{user[0]}}</p> <br><br>
-                    Second value : <p>{{user[1]}}</p><br><br>
-                    Third value : <p>{{user[2]}}</p> <br><br>
-                    Fourth value : <p>{{user[3]}}</p><br><br><br>
+                <div class={user}>
+                    First value : <p>{{user.temperature}}</p> <br><br>
+                    Second value : <p>{{user.rainfall}}</p><br><br>
+                    Third value : <p>{{user.wind_speed}}</p> <br><br>
+                    Fourth value : <p>{{user.humidity}}</p><br><br><br>
                 </div>
             </b>
             <input type="submit" , value='predict!'>
