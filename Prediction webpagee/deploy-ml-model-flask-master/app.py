@@ -61,9 +61,10 @@ def user():
     response = requests.get(url)
     print(response.text)
     data_disc = json.loads(response.text)
-    user = ["{:.2f}".format(float(data_disc["field1"])), "{:.2f}".format(float(data_disc["field3"])),
-            wind_spd, "{:.2f}".format(float(data_disc["field2"]))]
+    user = [float('%.2f' % (float(data_disc["field1"]))), float('%.2f' % (float(data_disc["field3"]))),
+            wind_spd, float('%.2f' % (float(data_disc["field2"])))]
     data1 = user[0]
+    print(type(data1))
     data2 = user[1]
     data3 = user[2]
     data4 = user[3]
@@ -73,6 +74,8 @@ def user():
     user.append(location)
     user.append(date_time)
     user.append(int(float(user[0])))
+    if user[1] <= 10.0:
+        user[1] = 0.00
     print(pred)
     return render_template('home.html', user=user)
 
