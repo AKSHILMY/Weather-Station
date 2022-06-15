@@ -18,18 +18,15 @@
                 <img src="..\static\logo.png" class="icon" alt="icon" width="500" height="500" />
             </div>
             <div>
-                <h1 class="temp">16&#176;</h1>
+                <h1 class="temp">{{user[7]}}&#176;</h1>
                 <div class="city-time">
-                    <h1 class="name">London</h1>
+                    <h1 class="name">{{user[5]}}</h1>
                     <small>
-                        <span class="time">06:09</span>
-                        <span class="date">
-                            Monday Sep 19
-                        </span>
+                        <span class="time">{{user[6]}}</span>
                     </small>
                 </div>
                 <div class="weather">
-                    <img src="..\static\1450.jpg" class="icon" alt="icon" width="50" height="50" />
+                    <img src="..\static\1450.png" class="icon" alt="icon" width="50" height="50" />
                 </div>
                 <span class="condition">Cloudy</span>
             </div>
@@ -47,21 +44,21 @@
                 </li>
                 <li>
                     <span>Humidity</span>
-                    <span class="humidity">{{user[1]}}</span>
+                    <span class="humidity">{{user[3]}}</span>
                 </li>
                 <li>
                     <span>WaterLevel</span>
-                    <span class="humidity">{{user[2]}}</span>
+                    <span class="humidity">{{user[1]}}</span>
                 </li>
                 <li>
                     <span>Wind Speed</span>
-                    <span class="wind">{{user[3]}}</span>
+                    <span class="wind">{{user[2]}}</span>
                 </li>
 
                 <h4>Prediction</h4>
                 <li>
                     <span>Chance Of Rainfall</span>
-                    <span class="wind">{%if user[4] == 0 %}
+                    <span class="wind">{%if user[4][0] == 1 %}
                         YES
                         {%else%}
                         NO

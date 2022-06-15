@@ -38,7 +38,7 @@ print(response.text)
 data_disc = json.loads(response.text)
 
 
-model = pickle.load(open('model.pkl', 'rb'))
+classifier = pickle.load(open('classifier.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -61,15 +61,18 @@ def user():
     response = requests.get(url)
     print(response.text)
     data_disc = json.loads(response.text)
-    user = [data_disc["field1"], data_disc["field2"],
-            data_disc["field3"], wind_spd]
+    user = ["{:.2f}".format(float(data_disc["field1"])), "{:.2f}".format(float(data_disc["field3"])),
+            wind_spd, "{:.2f}".format(float(data_disc["field2"]))]
     data1 = user[0]
     data2 = user[1]
     data3 = user[2]
     data4 = user[3]
     arr = np.array([[data1, data2, data3, data4]])
-    pred = model.predict(arr)
+    pred = classifier.predict(arr)
     user.append(pred)
+    user.append(location)
+    user.append(date_time)
+    user.append(int(float(user[0])))
     print(pred)
     return render_template('home.html', user=user)
 

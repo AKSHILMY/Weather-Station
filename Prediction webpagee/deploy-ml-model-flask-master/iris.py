@@ -28,8 +28,9 @@ X_train, X_test, Y_train, Y_test = train_test_split(
 classifier = RandomForestClassifier(n_estimators=100, random_state=0)
 classifier.fit(X_train, Y_train)
 
-pickle.dump(classifier, open('model.pkl', 'wb'))
-model = pickle.load(open('model.pkl', 'rb'))
+
+pickle.dump(classifier, open('classifier.pkl', 'wb'))
+classifier = pickle.load(open('classifier.pkl', 'rb'))
 
 """pred=(13.4,0.6,44.0,71.0)
 print(new)
