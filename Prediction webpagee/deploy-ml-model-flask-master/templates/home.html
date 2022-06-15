@@ -57,9 +57,16 @@
                     <span>Wind Speed</span>
                     <span class="wind">{{user[3]}}</span>
                 </li>
+
+                <h4>Prediction</h4>
                 <li>
-                    <span>Wind Direction</span>
-                    <span class="wind">90&#176;</span>
+                    <span>Chance Of Rainfall</span>
+                    <span class="wind">{%if user[4] == 0 %}
+                        YES
+                        {%else%}
+                        NO
+                        {%endif%}
+                    </span>
                 </li>
 
             </ul>

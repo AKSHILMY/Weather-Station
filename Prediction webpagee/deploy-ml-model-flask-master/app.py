@@ -8,6 +8,30 @@ import requests
 import time
 import json
 
+import os
+from datetime import datetime
+from urllib.request import urlopen
+url = "http://ipinfo.io/json"
+response = urlopen(url)
+data = json.load(response)
+
+user_api = "fe4a36dc39d229db5428ec9b0beb4278"
+location = data['city']
+
+complete_api_link = "https://api.openweathermap.org/data/2.5/weather?q=" + \
+    location+"&appid="+user_api
+api_link = requests.get(complete_api_link)
+api_data = api_link.json()
+wind_spd = api_data['wind']['speed']
+date_time = datetime.now().strftime("%d %b %Y | %I:%M:%S %p")
+
+print("-------------------------------------------------------------")
+print("Weather Stats for - {}  || {}".format(location.upper(), date_time))
+print("-------------------------------------------------------------")
+
+print("Current wind speed    :", wind_spd, 'kmph')
+
+
 url = "https://api.thingspeak.com/channels/1768351/feeds/last.json?api_key=4SI1XXXBA70UG705"
 response = requests.get(url)
 print(response.text)
@@ -37,19 +61,23 @@ def user():
     response = requests.get(url)
     print(response.text)
     data_disc = json.loads(response.text)
-    user = (data_disc["field1"], data_disc["field2"], data_disc["field3"])
+    user = [data_disc["field1"], data_disc["field2"],
+            data_disc["field3"], wind_spd]
+    data1 = user[0]
+    data2 = user[1]
+    data3 = user[2]
+    data4 = user[3]
+    arr = np.array([[data1, data2, data3, data4]])
+    pred = model.predict(arr)
+    user.append(pred)
+    print(pred)
     return render_template('home.html', user=user)
 
 
 @app.route('/predict', methods=['POST'])
 def home():
-    data1 = user[0]
-    data2 = user[1]
-    data3 = user[2]
-    data4 = 45
-    arr = np.array([[data1, data2, data3, data4]])
-    pred = model.predict(arr)
-    return render_template('after.html', data=pred)
+
+    return render_template('home.html', data=pred)
 
 
 # Add task
