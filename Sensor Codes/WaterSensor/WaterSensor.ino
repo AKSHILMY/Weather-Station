@@ -26,9 +26,9 @@ void loop() {
   value = analogRead(SIGNAL_PIN); // read the analog value from sensor
   digitalWrite(POWER_PIN, LOW);   // turn the sensor OFF
 
-  level = map(value, SENSOR_MIN, SENSOR_MAX, 0, 40); // 4 levels
-  Serial.print("Water level: ");
-  Serial.println(level);
+//  level = map(value, SENSOR_MIN, SENSOR_MAX, 0, 40); // 4 levels
+//  Serial.print("Water level: ");
+  Serial.println(value);
 
   delay(1000);
 }
