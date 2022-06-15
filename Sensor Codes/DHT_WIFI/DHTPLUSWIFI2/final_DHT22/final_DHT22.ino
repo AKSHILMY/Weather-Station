@@ -20,11 +20,12 @@ WiFiClient client;
 
 DHT dht(DHTPIN, DHTTYPE);
 
-void updateThingSpeak(float t, float h){
+void updateThingSpeak(float t, float h,float s1){
     ThingSpeak.setField(1,t);
     ThingSpeak.setField(2,h);
+    ThingSpeak.setField(3,s1);
     ThingSpeak.writeFields(myChannelNumber,myWriteAPIKey);
-    delay(20*1000);
+    delay(1000);
 }
 
 void setup()
@@ -46,7 +47,7 @@ void setup()
     Serial.println("IP address: ");
     Serial.println(WiFi.localIP());
 }
-
+//float s1 = 0;
 void loop()
 {
     // put your main code here, to run repeatedly:
@@ -56,8 +57,7 @@ void loop()
     float t = dht.readTemperature();
     //fahrenheit
     float f = dht.readTemperature(true);
-
-    // Check if any reads failed and exit early (to try again).
+       // Check if any reads failed and exit early (to try again).
     if (isnan(h) || isnan(t) || isnan(f))
     {
         Serial.println("Failed to read from DHT sensor!");
@@ -83,7 +83,13 @@ void loop()
     Serial.print(hif);
     Serial.println(" *F");
 
+//    WATER LEVEL
+    int s1=analogRead(A0); // Water Level Sensor output pin connected A0  
+    int level = map(s1, 0, 521, 0, 40); // 4 levels  // See the Value In Serial Monitor     
+    Serial.println(level);
+//    delay(100);      // for timer  
+
     if(client.connect(server,80)){
-        updateThingSpeak(t,h);
+        updateThingSpeak(t,h,s1);
     }
 }
