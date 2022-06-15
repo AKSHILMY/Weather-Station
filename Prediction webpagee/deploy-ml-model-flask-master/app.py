@@ -63,12 +63,11 @@ def user():
     data_disc = json.loads(response.text)
     user = [float('%.2f' % (float(data_disc["field1"]))), float('%.2f' % (float(data_disc["field3"]))),
             wind_spd, float('%.2f' % (float(data_disc["field2"])))]
-    data1 = user[0]
-    print(type(data1))
-    data2 = user[1]
-    data3 = user[2]
-    data4 = user[3]
-    arr = np.array([[data1, data2, data3, data4]])
+    temperature = user[0]
+    water_level = user[1]
+    wind_speed = user[2]
+    humidity = user[3]
+    arr = np.array([[temperature, water_level, wind_speed, humidity]])
     pred = classifier.predict(arr)
     user.append(pred)
     user.append(location)
@@ -77,34 +76,21 @@ def user():
     if user[1] <= 10.0:
         user[1] = 0.00
     print(pred)
+    # Add task
+    db = MySQLdb.connect(host="localhost", user="root",
+                         passwd="", db="weather")
+    cur = db.cursor()
+    cur.execute(
+        """INSERT INTO sensor_data (temperature,rainfall,wind_speed,humidity)
+    VALUES (%s,%s,%s,%s)""", (temperature, water_level, wind_speed, humidity))
+    db.commit()
+    print("Inserted")
     return render_template('home.html', user=user)
 
 
 @app.route('/predict', methods=['POST'])
 def home():
-
     return render_template('home.html', data=pred)
-
-
-# Add task
-db = MySQLdb.connect(host="localhost", user="root", passwd="", db="weather")
-cur = db.cursor()
-
-
-@app.route('/register/', methods=['GET', 'POST'])
-def register():
-    add_sensor_data()
-    return render_template('home.html', user=user)
-
-
-@app.route('/adduser/', methods=['GET', 'POST'])
-def add_sensor_data():
-    cur.execute(
-        """INSERT INTO sensor_data (temperature,rainfall,wind_speed,humidity)
-    VALUES (%s,%s,%s,%s)""", ("12.8", "0.8", "47", "72"))
-    db.commit()
-    print("Inserted")
-    return render_template('home.html', user=user)
 
 
 if __name__ == "__main__":
