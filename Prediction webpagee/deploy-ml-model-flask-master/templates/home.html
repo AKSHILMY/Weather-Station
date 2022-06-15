@@ -1,27 +1,72 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-<body bgcolor=#d4a3ae>
+<head>
+    <link rel="stylesheet" href="..\static\front.css" type="text/css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-    <center>
+</head>
 
-        <h1> IRIS FLOWER DETECTION </h1><br>
-
-        <form method="POST" , action="{{url_for('home')}}">
-            <b>
-                <div class="user">
-                    First value : <p>{{user[0]}}</p> <br><br>
-                    Second value : <p>{{user[1]}}</p><br><br>
-                    Third value : <p>{{user[2]}}</p> <br><br>
-                    Fourth value : <p>45</p><br><br><br>
+<body>
+    <div class="weather-app">
+        <div class="container">
+            <h3 class="brand"> The Weather</h3>
+            <div class="weather">
+                <img src="..\static\logo.png" class="icon" alt="icon" width="500" height="500" />
+            </div>
+            <div>
+                <h1 class="temp">16&#176;</h1>
+                <div class="city-time">
+                    <h1 class="name">London</h1>
+                    <small>
+                        <span class="time">06:09</span>
+                        <span class="date">
+                            Monday Sep 19
+                        </span>
+                    </small>
                 </div>
-            </b>
-            <input type="submit" , value='predict!'>
-        </form>
+                <div class="weather">
+                    <img src="..\static\1450.jpg" class="icon" alt="icon" width="50" height="50" />
+                </div>
+                <span class="condition">Cloudy</span>
+            </div>
+        </div>
+        <div class="panel">
+            <ul class="user">
+                <h4>Weather Details</h4>
+                <li>
+                    <span>Cloudy</span>
+                    <span class="cloud">89%</span>
+                </li>
+                <li>
+                    <span>Temperature</span>
+                    <span class="humidity">{{user[0]}}</span>
+                </li>
+                <li>
+                    <span>Humidity</span>
+                    <span class="humidity">{{user[1]}}</span>
+                </li>
+                <li>
+                    <span>WaterLevel</span>
+                    <span class="humidity">{{user[2]}}</span>
+                </li>
+                <li>
+                    <span>Wind Speed</span>
+                    <span class="wind">{{user[3]}}</span>
+                </li>
+                <li>
+                    <span>Wind Direction</span>
+                    <span class="wind">90&#176;</span>
+                </li>
 
-        <img src='static\flower1.jpg' alt="flower">
+            </ul>
 
-    </center>
+        </div>
 
+    </div>
 </body>
 
 </html>
