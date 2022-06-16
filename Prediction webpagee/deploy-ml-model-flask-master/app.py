@@ -15,8 +15,15 @@ url = "http://ipinfo.io/json"
 response = urlopen(url)
 data = json.load(response)
 
+send_url = "http://api.ipstack.com/check?access_key=45406e558260d069bdfa65f48eb96f68"
+geo_req = requests.get(send_url)
+geo_json = json.loads(geo_req.text)
+latitude = geo_json['latitude']
+longitude = geo_json['longitude']
+city = geo_json['city']
+
 user_api = "fe4a36dc39d229db5428ec9b0beb4278"
-location = data['city']
+location = city
 
 complete_api_link = "https://api.openweathermap.org/data/2.5/weather?q=" + \
     location+"&appid="+user_api
@@ -62,7 +69,7 @@ def user():
     print(response.text)
     data_disc = json.loads(response.text)
     user = [float('%.2f' % (float(data_disc["field1"]))), float('%.2f' % (float(data_disc["field3"]))),
-            wind_spd, float('%.2f' % (float(data_disc["field2"])))]
+            float('%.2f' % (wind_spd*3.60)), float('%.2f' % (float(data_disc["field2"])))]
     temperature = user[0]
     water_level = user[1]
     wind_speed = user[2]

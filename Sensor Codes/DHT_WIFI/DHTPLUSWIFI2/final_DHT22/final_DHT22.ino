@@ -27,9 +27,10 @@ void updateThingSpeak(float t, float h,float s1){
     ThingSpeak.writeFields(myChannelNumber,myWriteAPIKey);
     delay(1000);
 }
-
+#define LED D3 
 void setup()
 {
+    pinMode(LED, OUTPUT); // set the digital pin as output.
     // put your setup code here, to run once:
     Serial.begin(115200);
     dht.begin();
@@ -49,7 +50,13 @@ void setup()
 }
 //float s1 = 0;
 void loop()
-{
+{   
+    digitalWrite(LED, HIGH);
+    // turn the LED off.(Note that LOW is the voltage level but actually
+                      //the LED is on; this is because it is acive low on the ESP8266.
+            // wait for 1 second.
+   // turn the LED on.
+    
     // put your main code here, to run repeatedly:
     delay(2000);
     float h = dht.readHumidity();
@@ -60,6 +67,8 @@ void loop()
        // Check if any reads failed and exit early (to try again).
     if (isnan(h) || isnan(t) || isnan(f))
     {
+        digitalWrite(LED, LOW);
+        delay(1000);
         Serial.println("Failed to read from DHT sensor!");
         return;
     }

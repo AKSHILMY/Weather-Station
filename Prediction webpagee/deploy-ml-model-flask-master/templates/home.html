@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="..\static\front.css" type="text/css" />
+    <link rel="stylesheet" href="..\static\home.css" type="text/css" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +13,9 @@
 <body>
     <div class="weather-app">
         <div class="container">
-            <h3 class="brand"> The Weather</h3>
+            <h1 class="brand"> The Smart Weather Station</h1>
             <div class="weather">
-                <img src="..\static\logo.png" class="icon" alt="icon" width="500" height="500" />
+                <img src="..\static\logo.png" class="icon" alt="icon" width="350" height="350" />
             </div>
             <div>
                 <h1 class="temp">{{user[7]}}&#176;</h1>
@@ -26,7 +26,7 @@
                     </small>
                 </div>
                 <div class="weather">
-                    <img src="..\static\1450.png" class="icon" alt="icon" width="50" height="50" />
+                    <img src="..\static\cloud.png" class="icon" alt="icon" width="50" height="50" />
                 </div>
                 <span class="condition">Cloudy</span>
             </div>
@@ -35,24 +35,20 @@
             <ul class="user">
                 <h4>Weather Details</h4>
                 <li>
-                    <span>Cloudy</span>
-                    <span class="cloud">89%</span>
-                </li>
-                <li>
                     <span>Temperature</span>
-                    <span class="humidity">{{user[0]}}</span>
+                    <span class="humidity">{{user[0]}} &#176;C</span>
                 </li>
                 <li>
                     <span>Humidity</span>
-                    <span class="humidity">{{user[3]}} </span>
+                    <span class="humidity">{{user[3]}} &#37;</span>
                 </li>
                 <li>
                     <span>WaterLevel</span>
-                    <span class="humidity">{{user[1]}}</span>
+                    <span class="humidity">{{user[1]}} mm</span>
                 </li>
                 <li>
                     <span>Wind Speed</span>
-                    <span class="wind">{{user[2]}}</span>
+                    <span class="wind">{{user[2]}} kph</span>
                 </li>
 
                 <h4>Prediction</h4>
