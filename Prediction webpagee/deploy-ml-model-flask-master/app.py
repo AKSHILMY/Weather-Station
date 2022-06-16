@@ -8,13 +8,37 @@ import requests
 import time
 import json
 
+import os
+from datetime import datetime
+from urllib.request import urlopen
+url = "http://ipinfo.io/json"
+response = urlopen(url)
+data = json.load(response)
+
+user_api = "fe4a36dc39d229db5428ec9b0beb4278"
+location = data['city']
+
+complete_api_link = "https://api.openweathermap.org/data/2.5/weather?q=" + \
+    location+"&appid="+user_api
+api_link = requests.get(complete_api_link)
+api_data = api_link.json()
+wind_spd = api_data['wind']['speed']
+date_time = datetime.now().strftime("%d %b %Y | %I:%M:%S %p")
+
+print("-------------------------------------------------------------")
+print("Weather Stats for - {}  || {}".format(location.upper(), date_time))
+print("-------------------------------------------------------------")
+
+print("Current wind speed    :", wind_spd, 'kmph')
+
+
 url = "https://api.thingspeak.com/channels/1768351/feeds/last.json?api_key=4SI1XXXBA70UG705"
 response = requests.get(url)
 print(response.text)
 data_disc = json.loads(response.text)
 
 
-model = pickle.load(open('model.pkl', 'rb'))
+classifier = pickle.load(open('classifier.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -37,40 +61,36 @@ def user():
     response = requests.get(url)
     print(response.text)
     data_disc = json.loads(response.text)
-    user = (data_disc["field1"], data_disc["field2"], data_disc["field3"])
+    user = [float('%.2f' % (float(data_disc["field1"]))), float('%.2f' % (float(data_disc["field3"]))),
+            wind_spd, float('%.2f' % (float(data_disc["field2"])))]
+    temperature = user[0]
+    water_level = user[1]
+    wind_speed = user[2]
+    humidity = user[3]
+    arr = np.array([[temperature, water_level, wind_speed, humidity]])
+    pred = classifier.predict(arr)
+    user.append(pred)
+    user.append(location)
+    user.append(date_time)
+    user.append(int(float(user[0])))
+    if user[1] <= 10.0:
+        user[1] = 0.00
+    print(pred)
+    # Add task
+    db = MySQLdb.connect(host="localhost", user="root",
+                         passwd="", db="weather")
+    cur = db.cursor()
+    cur.execute(
+        """INSERT INTO sensor_data (temperature,rainfall,wind_speed,humidity)
+    VALUES (%s,%s,%s,%s)""", (temperature, water_level, wind_speed, humidity))
+    db.commit()
+    print("Inserted")
     return render_template('home.html', user=user)
 
 
 @app.route('/predict', methods=['POST'])
 def home():
-    data1 = user[0]
-    data2 = user[1]
-    data3 = user[2]
-    data4 = 45
-    arr = np.array([[data1, data2, data3, data4]])
-    pred = model.predict(arr)
-    return render_template('after.html', data=pred)
-
-
-# Add task
-db = MySQLdb.connect(host="localhost", user="root", passwd="", db="weather")
-cur = db.cursor()
-
-
-@app.route('/register/', methods=['GET', 'POST'])
-def register():
-    add_sensor_data()
-    return render_template('home.html', user=user)
-
-
-@app.route('/adduser/', methods=['GET', 'POST'])
-def add_sensor_data():
-    cur.execute(
-        """INSERT INTO sensor_data (temperature,rainfall,wind_speed,humidity)
-    VALUES (%s,%s,%s,%s)""", ("12.8", "0.8", "47", "72"))
-    db.commit()
-    print("Inserted")
-    return render_template('home.html', user=user)
+    return render_template('home.html', data=pred)
 
 
 if __name__ == "__main__":
