@@ -52,9 +52,9 @@
                 </li>
 
                 <h4>Prediction</h4>
-                <li>
+                <li id="rainfall-li-bg">
                     <span>Chance Of Rainfall</span>
-                    <span class="wind">{%if user[4][0] == 1 %}
+                    <span class="wind" id="rainfall-span-bg">{%if user[4][0] == 1 %}
                         YES
                         {%else%}
                         NO
@@ -67,6 +67,16 @@
         </div>
 
     </div>
+    <script>
+        let span = document.getElementById("rainfall-span-bg").innerText.trim();
+        let li = document.getElementById("rainfall-li-bg")
+        if (span === "YES") {
+            li.style.backgroundColor = "#87220C"
+        }
+        else {
+            li.style.backgroundColor = "#00ff00"
+        }
+    </script>
 </body>
 
 </html>

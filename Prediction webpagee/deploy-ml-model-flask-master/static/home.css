@@ -92,6 +92,10 @@ h1,h3{
     justify-content: space-between;
     align-items: center;
 }
+#rainfall-span-bg{
+    padding:10px;
+    
+}
 
 @media screen and (max-width: 800px) {
     .panel, .container {
