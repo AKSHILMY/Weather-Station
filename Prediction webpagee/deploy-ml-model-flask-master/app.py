@@ -75,7 +75,7 @@ def user():
     wind_speed = user[2]
     humidity = user[3]
     arr = np.array([[temperature, water_level, wind_speed, humidity]])
-    pred = classifier.predict(arr)
+    pred=classifier.predict(arr)
     user.append(pred)
     user.append(location)
     user.append(date_time)
