@@ -15,65 +15,65 @@ import warnings
 import pickle
 warnings.filterwarnings("ignore")
 
-dataset=pd.read_csv("C:\\Users\\najee\\OneDrive\\Documents\\GitHub\\Weather-Station\\Prediction webpagee\\deploy-ml-model-flask-master\\weatherAUS.csv")
-dataset=pd.DataFrame(dataset)
-dataset.drop_duplicates(keep='first',inplace=True)
-sc=StandardScaler()
+dataset = pd.read_csv(
+    "E:\\Projects\\Weather-Station\\Prediction webpagee\\deploy-ml-model-flask-master\\weatherAUS.csv")
+dataset = pd.DataFrame(dataset)
+dataset.drop_duplicates(keep='first', inplace=True)
+sc = StandardScaler()
 
 dataset = dataset[dataset['RainToday'].notna()]
 #print(dataset["RainToday"].value_counts(dropna=False),"Label Encoded")
-le_2=LabelEncoder()
-dataset["RainToday"]=le_2.fit_transform(dataset["RainToday"])
-dataset=dataset.iloc[:,[2,4,11,13,-2]]
-Y1=dataset["RainToday"]
-Y1=pd.DataFrame(Y1)
-dataset.drop(columns=["RainToday"],inplace=True)
+le_2 = LabelEncoder()
+dataset["RainToday"] = le_2.fit_transform(dataset["RainToday"])
+dataset = dataset.iloc[:, [2, 4, 11, 13, -2]]
+Y1 = dataset["RainToday"]
+Y1 = pd.DataFrame(Y1)
+dataset.drop(columns=["RainToday"], inplace=True)
 
-dataset_new=pd.concat([dataset,Y1],axis=1)
+dataset_new = pd.concat([dataset, Y1], axis=1)
 print(dataset_new)
 print(dataset_new["RainToday"].value_counts(dropna=False))
 
-dataset_new.drop_duplicates(keep='first',inplace=True)
+dataset_new.drop_duplicates(keep='first', inplace=True)
 print(dataset_new["RainToday"].value_counts(dropna=False))
-Y=dataset_new["RainToday"]
-dataset_new.drop(columns=["RainToday"],inplace=True)
+Y = dataset_new["RainToday"]
+dataset_new.drop(columns=["RainToday"], inplace=True)
 
-imputer=SimpleImputer(missing_values=np.nan,strategy='most_frequent')
-X=dataset_new
-X=pd.DataFrame(imputer.fit_transform(dataset_new))
+imputer = SimpleImputer(missing_values=np.nan, strategy='most_frequent')
+X = dataset_new
+X = pd.DataFrame(imputer.fit_transform(dataset_new))
 
 # Y=pd.DataFrame(Y)
 Y.value_counts(dropna=False)
 
-from sklearn.model_selection import train_test_split
-X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.5,random_state=42)
+X_train, X_test, Y_train, Y_test = train_test_split(
+    X, Y, test_size=0.5, random_state=42)
 
-from sklearn.ensemble import RandomForestClassifier
-classifier=RandomForestClassifier(n_estimators=100,random_state=0)
-classifier.fit(X_train,Y_train)
+classifier = RandomForestClassifier(n_estimators=100, random_state=0)
+classifier.fit(X_train, Y_train)
 
 #import xgboost as xgb
-#model=xgb.XGBClassifier()
-#model.fit(X_train,Y_train)
-#preds=model.predict(X_test)
-#print(accuracy_score(Y_test,preds))
+# model=xgb.XGBClassifier()
+# model.fit(X_train,Y_train)
+# preds=model.predict(X_test)
+# print(accuracy_score(Y_test,preds))
 #print('F1 is: ', f1_score(Y_test,preds,average='micro'))
 
-#print(Y_train)
-#classifier.score(X_train,Y_train)
+# print(Y_train)
+# classifier.score(X_train,Y_train)
 
 
 # Y_test=Y_test.reshape(-1,1)
 # Y_predict=Y_predict.reshape(-1,1)
 # print(classifier.predict(X_test))
 
-#Y_predict=pd.Series(Y_predict)
+# Y_predict=pd.Series(Y_predict)
 
-#Y_test
+# Y_test
 
-#Y_predict.value_counts()
+# Y_predict.value_counts()
 
-#Y_test.value_counts()
+# Y_test.value_counts()
 
 # print('Precision is: ', precision_score(Y_test,Y_predict))
 # print('Recall is: ', recall_score(Y_test,Y_predict))
