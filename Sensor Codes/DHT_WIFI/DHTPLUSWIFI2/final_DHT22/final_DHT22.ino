@@ -99,6 +99,6 @@ void loop()
 //    delay(100);      // for timer  
 
     if(client.connect(server,80)){
-        updateThingSpeak(t,h,s1);
+        updateThingSpeak(t,h,level);
     }
 }
