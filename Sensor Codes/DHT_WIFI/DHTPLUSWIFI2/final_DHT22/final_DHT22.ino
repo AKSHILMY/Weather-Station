@@ -1,4 +1,4 @@
-#include "DHT.h"
+ #include "DHT.h"
 #include <ESP8266WiFi.h>
 #include "ThingSpeak.h"
 #define DHTPIN 2 // IMPORTANT D2 on NodeMCU is GPIO 4
@@ -94,11 +94,11 @@ void loop()
 
 //    WATER LEVEL
     int s1=analogRead(A0); // Water Level Sensor output pin connected A0  
-    int level = map(s1, 0, 521, 0, 40); // 4 levels  // See the Value In Serial Monitor     
-    Serial.println(level);
+//    int level = map(s1, 0, 521, 0, 40); // 4 levels  // See the Value In Serial Monitor     
+    Serial.println(s1);
 //    delay(100);      // for timer  
 
     if(client.connect(server,80)){
-        updateThingSpeak(t,h,level);
+        updateThingSpeak(t,h,s1);
     }
 }
