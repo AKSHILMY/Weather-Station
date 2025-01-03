@@ -32,5 +32,3 @@ Both precision and accuracy score = 0.99
 
 ### Failure Detection
 The sensors used in this project needs to be monitored in order to display real-time data in the GUI. Thus, LEDs were connected to the sensors which would blink upon the failure of the sensors to read sensor data. Certain sensors like the water level sensor has an inbuilt LED that detects the failure of the sensor. 
-
-### Positives
